@@ -1,74 +1,57 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: souel-bo <souel-bo@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/23 21:39:13 by souel-bo          #+#    #+#             */
+/*   Updated: 2024/11/24 13:17:13 by souel-bo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
-#include <limits.h>
-#include <stdio.h>
-int ft_printf(const char *format, ...)
+
+static void	ft_put(const char *format, va_list list, int *counter)
 {
-    va_list list;
-    va_start(list, format);
-    int integer;
-    char character;
-    char *string;
-    void *ptr;
-    int i = 0;
-    while (*format)
-    {
-        if (*format == '%')
-        {
-                format++;
-                if (*format == 'd' || *format == 'i')
-                {
-                    integer = va_arg(list, int);
-                    ft_putnbr(integer);
-                    i++;
-                }
-                else if (*format == 'c')
-                {
-                    character = va_arg(list, int);
-                    ft_putchar((char)character);
-                    i++;
-                }
-                else if (*format == 's')
-                {
-                    string = va_arg(list, char *);
-                    ft_putstr(string);
-                    i++;
-                }
-                else if (*format == 'x')
-                {
-                    integer = va_arg(list, unsigned int);
-                    ft_puthex_lowercase(integer);
-                    i++;
-                }
-                else if (*format == 'X')
-                {
-                    integer = va_arg(list, unsigned int);
-                    ft_puthex_uppercase(integer);
-                    i++;
-                }
-                else if (*format == 'u')
-                {
-                    integer = va_arg(list, unsigned int);
-                    unsigned_putnbr(integer);
-                    i++;
-                }
-                else if (*format == 'p')
-                {
-                    ptr = va_arg(list, void *);
-                    ft_print_ptr((unsigned long long)ptr);
-                    i++;
-                }
-                else if (*format == '%')
-                {
-                    ft_putchar('%');
-                    i++;
-                }
-        }
-        else
-        {
-            ft_putchar(*format);
-            i++;
-        }
-        format++;
-    }
-    return i;
+	if (*format == 'c')
+		ft_putchar((char)va_arg(list, int), counter);
+	else if (*format == 's')
+		ft_putstr(va_arg(list, char *), counter);
+	else if (*format == 'p')
+		ft_putptr((unsigned long long)va_arg(list, void *), counter);
+	else if (*format == 'd' || *format == 'i')
+		ft_putnbr(va_arg(list, int), counter);
+	else if (*format == 'u')
+		ft_put_unsigned(va_arg(list, unsigned int), counter);
+	else if (*format == 'x')
+		ft_puthex(va_arg(list, unsigned int), "0123456789abcdef", counter);
+	else if (*format == 'X')
+		ft_puthex(va_arg(list, unsigned int), "0123456789ABCDEF", counter);
+	else if (*format == '%')
+		ft_putchar('%', counter);
+}
+
+int	ft_printf(const char *format, ...)
+{
+	va_list	list;
+	int		counter;
+
+	if (!format)
+		return (0);
+	va_start(list, format);
+	counter = 0;
+	while (*format)
+	{
+		if (*format == '%')
+		{
+			format++;
+			ft_put(format, list, &counter);
+		}
+		else
+			ft_putchar(*format, &counter);
+		format++;
+	}
+	va_end(list);
+	return (counter);
 }

@@ -1,33 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr.c                                        :+:      :+:    :+:   */
+/*   ft_putptr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: souel-bo <souel-bo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/24 10:08:29 by souel-bo          #+#    #+#             */
-/*   Updated: 2024/11/24 13:09:55 by souel-bo         ###   ########.fr       */
+/*   Created: 2024/11/24 11:57:15 by souel-bo          #+#    #+#             */
+/*   Updated: 2024/11/24 13:10:08 by souel-bo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_putnbr(int nb, int *counter)
+void	ft_putptr(unsigned long long nb, int *counter)
 {
-	if (nb == -2147483648)
+	if (nb == 0)
 	{
-		ft_putchar('-', counter);
-		ft_putchar('2', counter);
-		nb = 147483648;
+		ft_putstr("(nil)", counter);
+		return ;
 	}
-	if (nb < 0)
-	{
-		ft_putchar('-', counter);
-		nb *= -1;
-	}
-	if (nb >= 10)
-	{
-		ft_putnbr(nb / 10, counter);
-	}
-	ft_putchar('0' + nb % 10, counter);
+	ft_putstr("0x", counter);
+	ft_puthex(nb, "0123456789abcdef", counter);
 }

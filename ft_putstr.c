@@ -1,10 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_putstr.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: souel-bo <souel-bo@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/24 10:08:34 by souel-bo          #+#    #+#             */
+/*   Updated: 2024/11/24 13:11:10 by souel-bo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
-void ft_putstr(char *string)
+void	ft_putstr(char *s, int *counter)
 {
-    while(*string)
-    {
-        write(1, string, 1);
-        string++;
-    }
+	while (s && *s)
+		ft_putchar(*s++, counter);
 }

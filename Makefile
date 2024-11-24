@@ -1,27 +1,27 @@
 CC = cc
-FLAGS = -Wall -Werror -Werror
+CFLAGS = -Wall -Werror -Werror
 NAME =  libftprintf.a
 RM = rm -rf
 AR = ar rcs
-SOURCE = ft_print_ptr.c ft_printf.c ft_putchar.c ft_puthex.c\
-		 ft_putnbr.c ft_putstr.c ft_unsigned.c 
+SOURCE =  ft_printf.c  ft_putchar.c  ft_puthex.c  ft_putnbr.c  ft_putptr.c\
+		  ft_putstr.c  ft_put_unsigned.c
 
 OBJECT = $(SOURCE:.c=.o) 
 
-.PHONY: all clean fclean re
+.PHONY: clean
 
 all: $(NAME)
 
-$(NAME) : $(OBJECT) $(LIBFT_MAKE)
-	@$(AR) $@ $^
+$(NAME) : $(OBJECT)
+	$(AR) $@ $^
 
 %.o : %.c
-	@$(CC) $(FLAGS) -c $< -o $@ 
+	$(CC) $(CFLAGS) -c $< -o $@ 
 
 clean :
-	@$(RM) $(OBJECT)
+	$(RM) $(OBJECT)
 
 fclean : clean
-	@$(RM) $(NAME)
+	$(RM) $(NAME)
 
 re : fclean all
