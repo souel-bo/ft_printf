@@ -6,7 +6,7 @@
 /*   By: souel-bo <souel-bo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 10:08:34 by souel-bo          #+#    #+#             */
-/*   Updated: 2024/11/24 13:11:10 by souel-bo         ###   ########.fr       */
+/*   Updated: 2024/11/26 10:49:31 by souel-bo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	ft_putstr(char *s, int *counter)
 {
-	while (s && *s)
+	if (!s)
+		s = "(null)";
+	while (*s)
 		ft_putchar(*s++, counter);
 }

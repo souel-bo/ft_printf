@@ -6,7 +6,7 @@
 /*   By: souel-bo <souel-bo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 21:39:13 by souel-bo          #+#    #+#             */
-/*   Updated: 2024/11/24 13:56:59 by souel-bo         ###   ########.fr       */
+/*   Updated: 2024/11/26 10:50:22 by souel-bo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	ft_put(const char *format, va_list list, int *counter)
 	else if (*format == 's')
 		ft_putstr(va_arg(list, char *), counter);
 	else if (*format == 'p')
-		ft_putptr((unsigned long long)va_arg(list, void *), counter);
+		ft_putptr(va_arg(list, unsigned long), counter);
 	else if (*format == 'd' || *format == 'i')
 		ft_putnbr(va_arg(list, int), counter);
 	else if (*format == 'u')
